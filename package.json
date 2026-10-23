@@ -1,0 +1,45 @@
+{
+  "name": "bun-backend-template",
+  "description": "Bun + Elysia + Drizzle backend template with quality gates and AI rules",
+  "type": "module",
+  "private": true,
+  "packageManager": "bun@1.3.13",
+  "engines": {
+    "bun": ">=1.3.13"
+  },
+  "scripts": {
+    "dev": "bun --watch src/main.ts",
+    "start": "bun src/main.ts",
+    "check": "biome check .",
+    "fix": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "arch": "depcruise src --config .dependency-cruiser.cjs",
+    "comments": "bun scripts/check-comments.ts",
+    "test": "bun test",
+    "verify": "bun run check && bun run typecheck && bun run arch && bun run comments && bun run features && bun run test",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "prepare": "lefthook install",
+    "features": "bun scripts/check-features.ts",
+    "rename": "bun scripts/rename.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.4",
+    "elysia": "^1.4.30"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.2",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@commitlint/types": "^21.2.3",
+    "@cucumber/gherkin": "^42.0.1",
+    "@cucumber/messages": "^34.2.1",
+    "@types/bun": "^1.4.4",
+    "dependency-cruiser": "^18.7.0",
+    "drizzle-kit": "^0.31.11",
+    "lefthook": "^2.2.2",
+    "typescript": "^6"
+  }
+}
